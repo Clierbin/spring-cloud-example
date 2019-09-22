@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    zookeeper:
+      enabled: false    # Zookeeper 服务注册与发现失败    (默认)
+    consul:
+      discovery:
+        enabled: false # Consul 服务发现与注册失效   (默认)
+eureka:
+  client:
+    enabled: false    # Eureka 服务注册与发现失败    (默认)
+server:
+  port: 0 # 随机端口
+
+# Eureka 客户端配置
+
+--- # Profile For Eureka
+spring:
+  profiles: eureka
+eureka:
+  server:  # 官方不存在的配置 (自定义配置)
+    host: 127.0.0.1
+    port: 12345
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://${eureka.server.host}:${eureka.server.port}/eureka
+  instance:
+    instanceId: ${spring.application.name}:${server.port}
+
+
+---  # Profile For Zookeeper
+spring:
+  profiles: zookeeper
+  cloud:
+    zookeeper:
+      connectString: 192.168.5.179:2181
+      enabled: true
+
+
+---  # Profile For Consul
+spring:
+  profiles: consul
+  cloud:
+    consul:
+      discovery:
+        enabled: true
+        ipAddress: 127.0.0.1
+        port: 8500
+
