@@ -17,6 +17,8 @@
     <modules>
         <module>spring-config-client</module>
         <module>eureka-server</module>
+        <module>service-provider</module>
+        <module>service-client</module>
     </modules>
 
     <properties>
