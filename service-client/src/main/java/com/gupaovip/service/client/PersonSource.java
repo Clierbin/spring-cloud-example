@@ -15,8 +15,7 @@ import org.springframework.messaging.MessageChannel;
  */
 public interface PersonSource {
 
-    String TOPIC="gupao";
 
-    @Output(TOPIC)
+    @Output("person-source")
     MessageChannel output();
 }

@@ -10,6 +10,16 @@ spring:
       group-id: gupao-group
       # consumer 反序列化
       valueDeserializer: com.gupaovip.service.client.kafka.ObjectDeserializer
+
+
+  cloud:
+    stream:
+      bindings:
+        person-source:
+          destination: gupao
+        person-sink:
+          destination: gupao
+          group: gupao-group
 server:
   port: 9090 # 随机端口
 

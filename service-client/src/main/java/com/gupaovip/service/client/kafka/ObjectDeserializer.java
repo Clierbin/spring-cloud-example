@@ -18,7 +18,7 @@ import java.util.Map;
 public class ObjectDeserializer implements Deserializer<Serializable> {
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
-
+        System.out.println(configs);
     }
 
     @Override
