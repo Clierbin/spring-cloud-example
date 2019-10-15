@@ -5,7 +5,6 @@ spring:
     zookeeper:
       enabled: false    # Zookeeper 服务注册与发现失败    (默认)
     consul:
-      discovery:
         enabled: false # Consul 服务发现与注册失效   (默认)
 eureka:
   client:
@@ -44,8 +43,8 @@ spring:
   profiles: consul
   cloud:
     consul:
+      enabled: true
       discovery:
-        enabled: true
         ipAddress: 127.0.0.1
         port: 8500
 

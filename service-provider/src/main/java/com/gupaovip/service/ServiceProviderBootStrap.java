@@ -2,9 +2,13 @@ package com.gupaovip.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * ClassName:ServiceProviderBootStrap
@@ -19,8 +23,16 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 @ComponentScan
 @EnableDiscoveryClient
+@EnableCircuitBreaker
+@EnableAspectJAutoProxy
+@EnableBinding(Sink.class)
 public class ServiceProviderBootStrap {
     public static void main(String[] args) {
         SpringApplication.run(ServiceProviderBootStrap.class,args);
+    }
+
+    @StreamListener(Sink.INPUT)
+    public void listen(byte[] data){
+        System.out.println(new String(data));
     }
 }

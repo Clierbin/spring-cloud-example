@@ -1,8 +1,20 @@
 spring:
   application:
     name: service-client
-  autoconfigure:
-    exclude: org.springframework.cloud.consul.serviceregistry.ConsulAutoServiceRegistrationAutoConfiguration
 
+  kafka:
+    producer:
+      # 发送端 系列化
+      valueSerializer: com.gupaovip.service.client.kafka.ObjectSerializer
+    consumer:
+      group-id: gupao-group
+      # consumer 反序列化
+      valueDeserializer: com.gupaovip.service.client.kafka.ObjectDeserializer
 server:
   port: 9090 # 随机端口
+
+
+
+
+
+

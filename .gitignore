@@ -29,3 +29,11 @@ build/
 
 ### VS Code ###
 .vscode/
+eureka-server/src/test/
+service-client/src/test/
+service-provider/src/test/
+spring-config-client/.mvn/wrapper/
+spring-config-client/mvnw
+spring-config-client/mvnw.cmd
+spring-config-client/src/test/
+wrapper/

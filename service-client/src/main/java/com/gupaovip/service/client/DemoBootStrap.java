@@ -43,7 +43,10 @@ public class DemoBootStrap {
     @Qualifier("c")
     private String cBean;
 
-
+    /**
+     * spring容器启动完成之后，就会紧接着执行这个接口实现类的run方法。
+     * @return
+     */
     @Bean
     public ApplicationRunner runner(){
         return args -> {
