@@ -25,14 +25,14 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 @EnableAspectJAutoProxy
-@EnableBinding(Sink.class)
+//@EnableBinding(Sink.class)
 public class ServiceProviderBootStrap {
     public static void main(String[] args) {
         SpringApplication.run(ServiceProviderBootStrap.class,args);
     }
 
-    @StreamListener(Sink.INPUT)
-    public void listen(byte[] data){
-        System.out.println(new String(data));
-    }
+//    @StreamListener(Sink.INPUT)
+//    public void listen(byte[] data){
+//        System.out.println(new String(data));
+//    }
 }

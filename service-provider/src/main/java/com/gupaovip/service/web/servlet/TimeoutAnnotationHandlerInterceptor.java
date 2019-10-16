@@ -1,3 +1,4 @@
+/*
 package com.gupaovip.service.web.servlet;
 
 import com.gupaovip.service.annotation.Timeout;
@@ -13,6 +14,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.*;
 import java.util.stream.Stream;
 
+*/
 /**
  * ClassName:TimeoutAnnotationHandlerInterceptor
  * Package:com.gupaovip.service.web.servlet
@@ -25,7 +27,8 @@ import java.util.stream.Stream;
  * {@link Timeout Timeout} 注解处理 Web MVV 拦截器
  * @see HandlerInterceptor
  * @see Timeout
- */
+ *//*
+
 public class TimeoutAnnotationHandlerInterceptor implements HandlerInterceptor {
 
     private ExecutorService executorService = Executors.newFixedThreadPool(2);
@@ -94,3 +97,4 @@ public class TimeoutAnnotationHandlerInterceptor implements HandlerInterceptor {
         return fallBackMethod;
     }
 }
+*/
