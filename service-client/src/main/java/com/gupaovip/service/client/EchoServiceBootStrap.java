@@ -4,7 +4,7 @@ import com.gupaovip.service.client.domain.Person;
 import com.gupaovip.service.client.kafka.ObjectSerializer;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -15,10 +15,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.*;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * ClassName:EchoServiceController
@@ -30,7 +35,8 @@ import org.springframework.web.client.RestTemplate;
  * @Version 1.0.0
  * @CreateTime： 2019/9/22 18:36
  */
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
+@SpringBootApplication
 @EnableDiscoveryClient
 @RestController
 @EnableFeignClients
@@ -54,19 +60,23 @@ public class EchoServiceBootStrap {
 
     private final PersonSink personSink;
 
+    private final CsrfTokenRepository csrfTokenRepository;
+
     public EchoServiceBootStrap(EchoServiceClient echoServiceClient,
 //                                RestTemplate restTemplate,
                                 KafkaTemplate<String, Object> kafkaTemplate,
                                 Source source,
                                 PersonSource personSource,
-                                PersonSink personSink) {
+                                PersonSink personSink, CsrfTokenRepository csrfTokenRepository) {
         this.echoServiceClient = echoServiceClient;
 //        this.restTemplate = restTemplate;
         this.kafkaTemplate = kafkaTemplate;
         this.source = source;
         this.personSource = personSource;
         this.personSink = personSink;
+        this.csrfTokenRepository = csrfTokenRepository;
     }
+
 
     @GetMapping("/call/echo/{message}")
     public String callEcho(@PathVariable String message) {
@@ -110,6 +120,17 @@ public class EchoServiceBootStrap {
     }*/
 
 
+//&_csrf=4f2dd14a-bda4-4916-8812-5d5ae0b72126
+
+    @GetMapping("/csrf/token")
+    public CsrfToken csrfToken(HttpServletRequest request , HttpServletResponse response){
+        CsrfToken csrfToken = csrfTokenRepository.loadToken(request);
+        if (csrfToken==null){
+            csrfToken=csrfTokenRepository.generateToken(request);
+            csrfTokenRepository.saveToken(csrfToken,request,response);
+        }
+        return csrfToken;
+    }
 
 
     @LoadBalanced
